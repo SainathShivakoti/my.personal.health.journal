@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Diet and Health Journal 2025</title> <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 15px;
+      background: #f0f2f5;
+      color: #333;
+      overflow-x: hidden;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .month {
+      page-break-after: always;
+      width: 100%;
+      max-width: 1920px;
+      margin: 0 auto;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      padding-bottom: 10px;
+      box-sizing: border-box;
+    }
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 15px;
+      border: none;
+      padding: 5px;
+      box-sizing: border-box;
+    }
+    .day-header {
+      text-align: center;
+      font-weight: bold;
+      padding: 10px;
+      background: #222;
+      color: #fff;
+      border-radius: 5px;
+      font-size: 16px;
+      word-wrap: break-word;
+      box-sizing: border-box;
+    }
+    .day {
+      background: #fff;
+      border-radius: 5px;
+      border: 1px solid rgba(0, 0, 0, 0.4);
+      padding: 5px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      min-height: 300px;
+      justify-content: flex-start;
+      position: relative;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+    .empty-day-placeholder {
+      border: 1px solid rgba(0, 0, 0, 0.4);
+      background-color: transparent;
+      min-height: 300px;
+      box-sizing: border-box;
+      pointer-events: none;
+      visibility: visible;
+      box-shadow: none;
+    }
+    .date {
+      font-weight: bold;
+      font-size: 16px;
+      color: #444;
+      margin-bottom: 4px;
+      align-self: flex-end;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      width: 100%;
+    }
+    .day-of-week-mobile {
+        font-size: 0.8em;
+        color: #888;
+        display: none;
+    }
+    .entry-line {
+      font-size: 10px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: flex-start;
+      width: 100%;
+      flex-shrink: 0;
+    }
+    .entry-label {
+      font-weight: bold;
+      width: 50px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      line-height: 1.2;
+      word-break: break-word;
+      text-align: left;
+    }
+    .entry-input {
+      flex-grow: 1;
+      flex-shrink: 1;
+      min-width: 0;
+      max-width: 100%;
+      font-size: 10px;
+      padding: 2px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #fafafa;
+      resize: none !important;
+      line-height: 1;
+      height: 3.5em;
+      min-height: 3.5em;
+      max-height: 3.5em;
+      overflow: hidden;
+      box-sizing: border-box;
+      word-break: break-all;
+      white-space: normal;
+    }
+    .entry-input:focus {
+      outline: 2px solid #3b82f6;
+      background: #fff;
+    }
+    h2 {
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      font-size: 24px;
+      color: #2c3e50;
+    }
+
+    @media print {
+      body {
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        background: #fff;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        font-size: 8px;
+      }
+      .month {
+        page-break-after: always;
+        width: 100%;
+        height: 98vh;
+        max-width: 100%;
+        margin: 0 auto;
+        border: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      h1, h2 {
+        color: #000;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        font-size: 16px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+      .calendar {
+        flex-grow: 1;
+        border: 1px solid #000;
+        padding: 0;
+        gap: 0;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: auto repeat(5, 1fr);
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+      }
+      .calendar > .day-header:first-child {
+        grid-row: 1;
+      }
+      .calendar > .day-header {
+        background: #000;
+        color: #fff;
+        border-radius: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        padding: 1px;
+        border: 1px solid #000;
+        box-sizing: border-box;
+        height: auto;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        text-align: center;
+      }
+      .day {
+        min-height: 0;
+        border: 1px solid #000;
+        background: #fff;
+        border-radius: 0;
+        box-shadow: none;
+        overflow: hidden;
+        padding: 0px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+      }
+      .empty-day-placeholder {
+        border: none;
+        background: none;
+        box-shadow: none;
+        visibility: hidden;
+      }
+      .date {
+        font-size: 10px;
+        color: #000;
+        margin-bottom: 0px;
+        padding: 1px;
+        align-self: flex-end;
+        line-height: 1;
+      }
+      .day-of-week-mobile {
+          display: none !important;
+      }
+      .entry-line {
+        margin-bottom: 0px;
+        flex-grow: 1;
+        align-items: stretch;
+      }
+      .entry-label {
+        font-size: 6px;
+        width: 30px;
+        margin-top: 0px;
+        padding-right: 0px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        text-align: left;
+        flex-shrink: 0;
+        list-style: none;
+        margin-left: 0;
+        padding-left: 0;
+      }
+      .entry-input {
+        border: 1px solid #000;
+        background: #fff;
+        resize: none !important;
+        overflow: hidden;
+        font-size: 6px;
+        padding: 0px;
+        height: 3em;
+        min-height: 3em;
+        max-height: 3em;
+        line-height: 1;
+        flex-grow: 1;
+        flex-shrink: 1;
+        min-width: 0;
+        max-width: 100%;
+        word-break: break-all;
+        white-space: normal;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .calendar {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        border: none;
+        padding: 0;
+      }
+      .day-header {
+        display: none;
+      }
+      .day {
+        min-height: auto;
+        grid-column-start: auto !important;
+        margin-bottom: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.4);
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        padding: 10px;
+        overflow: hidden;
+      }
+      .date {
+          flex-direction: row;
+          justify-content: space-between;
+          width: 100%;
+          font-size: 14px;
+          margin-bottom: 8px;
+      }
+      .day-of-week-mobile {
+          display: block;
+      }
+      .entry-label {
+        width: 60px;
+        margin-top: 2px;
+        padding-right: 5px;
+        font-size: 10px;
+      }
+      .entry-input {
+        font-size: 10px;
+        height: 3em;
+        min-height: 3em;
+        max-height: 3em;
+        overflow: hidden;
+        word-break: break-all;
+        white-space: normal;
+        flex-grow: 1;
+        flex-shrink: 1;
+        min-width: 0;
+        max-width: 100%;
+      }
+      .empty-day-placeholder {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Personal Diet and Health Journal - 2025</h1> <div id="journal"></div>
+
+  <script>
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"];
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    const journal = document.getElementById("journal");
+
+    for (let month = 0; month < 12; month++) {
+      const year = 2025;
+      const firstDayOfMonth = new Date(year, month, 1).getDay();
+      const numDaysInMonth = new Date(year, month + 1, 0).getDate(); 
+
+      const container = document.createElement("div");
+      container.className = "month";
+
+      const title = document.createElement("h2");
+      title.textContent = `${monthNames[month]} ${year}`;
+      container.appendChild(title);
+
+      const headerRow = document.createElement("div");
+      headerRow.className = "calendar";
+      for (const d of daysOfWeek) {
+        const cell = document.createElement("div");
+        cell.className = "day-header";
+        cell.textContent = d;
+        headerRow.appendChild(cell);
+      }
+      container.appendChild(headerRow);
+
+      const calendarGrid = document.createElement("div");
+      calendarGrid.className = "calendar";
+
+      for (let i = 0; i < firstDayOfMonth; i++) {
+        const emptyDayBox = document.createElement("div");
+        emptyDayBox.className = "day empty-day-placeholder";
+        calendarGrid.appendChild(emptyDayBox);
+      }
+
+      for (let date = 1; date <= numDaysInMonth; date++) {
+        const dayBox = document.createElement("div");
+        dayBox.className = "day";
+
+        const dateContainer = document.createElement("div");
+        dateContainer.className = "date";
+
+        const dayOfWeekMobile = document.createElement("span");
+        dayOfWeekMobile.className = "day-of-week-mobile";
+        const currentDayIndex = (firstDayOfMonth + date - 1) % 7;
+        dayOfWeekMobile.textContent = daysOfWeek[currentDayIndex];
+        dateContainer.appendChild(dayOfWeekMobile);
+
+        const dateLabel = document.createElement("span");
+        dateLabel.textContent = date;
+        dateContainer.appendChild(dateLabel);
+
+        dayBox.appendChild(dateContainer);
+
+        const fields = ["Breakfast", "Lunch", "Dinner", "Snacks", "Migraine Notes", "Other"];
+        fields.forEach(label => {
+          const entryLine = document.createElement("div");
+          entryLine.className = "entry-line";
+
+          const entryLabel = document.createElement("span");
+          entryLabel.className = "entry-label";
+          entryLabel.innerHTML = `${label.split(' ').join('<br>')}:`;
+
+          const input = document.createElement("textarea");
+          input.className = "entry-input";
+          input.rows = 3;
+          input.maxLength = 60;
+          
+          // Generate a unique key for localStorage for each input
+          const localStorageKey = `journal-${year}-${monthNames[month]}-${date}-${label.replace(/\s/g, '')}`;
+          input.name = localStorageKey; // Use this as the name attribute too if helpful
+
+          // Load saved data when input is created
+          const savedValue = localStorage.getItem(localStorageKey);
+          if (savedValue) {
+            input.value = savedValue;
+          }
+
+          // Save data on input change
+          input.addEventListener('input', (event) => {
+            localStorage.setItem(localStorageKey, event.target.value);
+          });
+
+          entryLine.appendChild(entryLabel);
+          entryLine.appendChild(input);
+          dayBox.appendChild(entryLine);
+        });
+
+        calendarGrid.appendChild(dayBox);
+      }
+      container.appendChild(calendarGrid);
+      journal.appendChild(container);
+    }
+  </script>
+</body>
+</html>
