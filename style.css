@@ -1,0 +1,667 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    /* Add padding-top to account for the height of all sticky headers */
+    padding: 15px;
+    /* Existing padding (left/right/bottom) */
+    padding-top: 25px;
+    /* Adjusted value for cumulative sticky header height */
+    background: #f0f2f5;
+    color: #333;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.month {
+    page-break-after: always;
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    padding-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 15px;
+    border: none;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.day-header {
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+    background: #222;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 16px;
+    word-wrap: break-word;
+    box-sizing: border-box;
+}
+
+.day {
+    background: #fff;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    /* Black outline for boxes */
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    min-height: 300px;
+    justify-content: flex-start;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+
+}
+
+.empty-day-placeholder {
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    background-color: transparent;
+    min-height: 300px;
+    box-sizing: border-box;
+    pointer-events: none;
+    visibility: visible;
+    box-shadow: none;
+}
+
+.date {
+    font-weight: bold;
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 4px;
+    align-self: flex-end;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 100%;
+}
+
+.day-of-week-mobile {
+    font-size: 0.8em;
+    color: #888;
+    display: none;
+}
+
+.entry-line {
+    font-size: 10px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.entry-label {
+    font-weight: bold;
+    width: 50px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    line-height: 1.2;
+    word-break: break-word;
+    text-align: left;
+}
+
+.entry-input {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+    max-width: 100%;
+    font-size: 10px;
+    padding: 2px;
+    border: 1px solid #ccc;
+    /* Border for input fields */
+    border-radius: 4px;
+    background-color: #fafafa;
+    resize: none !important;
+    line-height: 1;
+    height: 3.5em;
+    /* Fixed height for inputs*/
+    min-height: 3.5em;
+    /* Fixed height for inputs*/
+    max-height: 3.5em;
+    /* Fixed height for inputs*/
+    overflow: hidden;
+    /* Hide scrollbars*/
+    box-sizing: border-box;
+    word-break: break-all;
+    /* Break long words*/
+    white-space: normal;
+    /* Allow normal text wrapping*/
+}
+
+.entry-input:focus {
+    outline: 2px solid #3b82f6;
+    background: #fff;
+}
+
+.nameOfMonth {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #2c3e50;
+    background: #f0f2f5;
+    /* Blend with background */
+    width: 100%;
+    max-width: 1920px;
+    box-sizing: border-box;
+    padding-bottom: 10px;
+    /* Add some space below it */
+    margin-left: auto;
+    /* Center with max-width */
+    margin-right: auto;
+    /* Center with max-width */
+}
+
+/* New CSS for auth forms */
+#auth-section {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+#auth-section h3 {
+    text-align: center;
+    color: #555;
+    margin-top: 0;
+}
+
+#auth-section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+#auth-section input[type="text"],
+#auth-section input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#auth-section button {
+    width: 100%;
+    padding: 10px;
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+#auth-section button:hover {
+    opacity: 0.9;
+}
+
+#register-btn {
+    background-color: #4CAF50;
+}
+
+#auth-section p {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+#auth-section a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#auth-section a:hover {
+    text-decoration: underline;
+}
+
+#reg-message,
+#login-message,
+#forgot-message {
+    /* Added #forgot-message */
+    font-weight: bold;
+}
+
+/* Styles for the welcome/logout section */
+#welcome-section {
+    width: 100%;
+    max-width: 1920px;
+    display: flex;
+    /* Use flexbox for alignment */
+    justify-content: space-between;
+    /* Push welcome-message left, logout-link right */
+    align-items: center;
+    /* Vertically center items */
+    padding: 10px 15px;
+    /* Add padding to the sides */
+    box-sizing: border-box;
+    /* Make welcome section sticky */
+    position: sticky;
+    top: 0;
+    background: #f0f2f5;
+    /* Match body background */
+    z-index: 1002;
+    /* Highest z-index */
+    height: 40px;
+    /* Fixed height for consistent calculation */
+}
+
+#welcome-message {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #333;
+    white-space: nowrap;
+    /* Prevent wrapping for username */
+}
+
+/* Journal Container Styling */
+#journal-container {
+    width: 100%;
+    max-width: 1920px;
+    display: none;
+    margin-top: 20px;
+}
+
+/* Main Journal Title (H1) */
+#main-journal-title {
+    /* Make main journal title sticky */
+    position: sticky;
+    top: 40px;
+    /* (Welcome section height) = 40px */
+    z-index: 1001;
+    /* Stays above month titles and day headers */
+    background: #f0f2f5;
+    /* Blend with background */
+    width: 100%;
+    max-width: 1920px;
+    box-sizing: border-box;
+    padding: 10px 0;
+    /* Add some vertical padding */
+    margin-top: 0;
+    /* Remove default top margin */
+    margin-left: auto;
+    /* Center with max-width */
+    margin-right: auto;
+    /* Center with max-width */
+}
+
+
+/* Media queries from your original CSS */
+@media print {
+    body {
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        padding: 0 !important;
+        /* Remove padding-top for print */
+        background: #fff;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        font-size: 8px;
+        display: block;
+    }
+
+    .month {
+        page-break-after: always;
+        width: 100%;
+        height: 98vh;
+        max-width: 100%;
+        margin: 0 auto;
+        border: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    h1,
+    h2 {
+        color: #000;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        font-size: 16px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        /* Remove sticky for print */
+        position: static !important;
+        top: auto !important;
+        z-index: auto !important;
+        background: none !important;
+        padding: 0 !important;
+        width: auto !important;
+        /* Reset width */
+        max-width: none !important;
+        /* Reset max-width */
+    }
+
+    .calendar {
+        flex-grow: 1;
+        border: 1px solid #000;
+        padding: 0;
+        gap: 0;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: auto repeat(5, 1fr);
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+    }
+
+    .calendar>.day-header:first-child {
+        grid-row: 1;
+    }
+
+    .calendar>.day-header {
+        background: #000;
+        color: #fff;
+        border-radius: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        padding: 1px;
+        border: 1px solid #000;
+        box-sizing: border-box;
+        height: auto;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        text-align: center;
+        /* Remove sticky for print */
+        position: static !important;
+        top: auto !important;
+        z-index: auto !important;
+        background: #000 !important;
+        /* Re-apply black background specifically for print */
+        width: auto !important;
+        /* Reset width */
+        max-width: none !important;
+        /* Reset max-width */
+    }
+
+    .day {
+        min-height: 0;
+        border: 1px solid #000;
+        background: #fff;
+        border-radius: 0;
+        box-shadow: none;
+        overflow: hidden;
+        padding: 0px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+    }
+
+    .empty-day-placeholder {
+        border: none;
+        background: none;
+        box-shadow: none;
+        visibility: hidden;
+    }
+
+    .date {
+        font-size: 10px;
+        color: #000;
+        margin-bottom: 0px;
+        padding: 1px;
+        align-self: flex-end;
+        line-height: 1;
+    }
+
+    .day-of-week-mobile {
+        display: none !important;
+    }
+
+    .entry-line {
+        margin-bottom: 0px;
+        flex-grow: 1;
+        align-items: stretch;
+    }
+
+    .entry-label {
+        font-size: 6px;
+        width: 30px;
+        margin-top: 0px;
+        padding-right: 0px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        text-align: left;
+        flex-shrink: 0;
+        list-style: none;
+        margin-left: 0;
+        padding-left: 0;
+    }
+
+    .entry-input {
+        border: 1px solid #000;
+        background: #fff;
+        resize: none !important;
+        overflow: hidden;
+        font-size: 6px;
+        padding: 0px;
+        height: 3em;
+        min-height: 3em;
+        max-height: 3em;
+        line-height: 1;
+        flex-grow: 1;
+        flex-shrink: 1;
+        min-width: 0;
+        max-width: 100%;
+        word-break: break-all;
+        white-space: normal;
+    }
+
+    /* Hide auth and welcome sections for print */
+    #auth-section,
+    #welcome-section {
+        display: none !important;
+    }
+
+    #journal-container {
+        display: block !important;
+        margin-top: 0 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 100px;
+        /* Adjust padding for mobile if needed for less headers */
+    }
+
+    h2 {
+        top: 50px;
+        /* Adjusted for mobile if H1 is hidden or smaller */
+    }
+
+    .day-header {
+        /* Day headers are already hidden on mobile by default, so no sticky on mobile */
+        position: static !important;
+        /* Ensure they are not sticky if displayed */
+    }
+
+    .calendar {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        border: none;
+        padding: 0;
+    }
+
+    .day-header {
+        display: none;
+    }
+
+    .day {
+        min-height: auto;
+        grid-column-start: auto !important;
+        margin-bottom: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.4);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        padding: 10px;
+        overflow: hidden;
+    }
+
+    .date {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .day-of-week-mobile {
+        display: block;
+    }
+
+    .entry-label {
+        width: 60px;
+        margin-top: 2px;
+        padding-right: 5px;
+        font-size: 10px;
+    }
+
+    .entry-input {
+        font-size: 10px;
+        height: 3em;
+        min-height: 3em;
+        max-height: 3em;
+        overflow: hidden;
+        word-break: break-all;
+        white-space: normal;
+        flex-grow: 1;
+        flex-shrink: 1;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .empty-day-placeholder {
+        display: none;
+    }
+}
+
+#welcome-message {
+    font-weight: bold;
+    font-size: 1.1em;
+    background: linear-gradient(to right, #ff0080, #7928ca);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 3s linear infinite;
+    white-space: nowrap;
+}
+
+#auth-title {
+    font-weight: bold;
+    font-size: 1.35em;
+    background: linear-gradient(to right, #ff0080, #7928ca);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 5s linear infinite;
+    white-space: nowrap;
+}
+
+@-webkit-keyframes shine {
+
+    0%,
+    20% {
+        background-position: -500px;
+    }
+
+    40% {
+        background-position: top left;
+    }
+
+    80% {
+        background-position: top right;
+    }
+
+    100% {
+        background-position: 500px;
+    }
+}
+
+#logout-link {
+    background-color: #49b8dd;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+#logout-link:hover {
+    background-color: #436aece4;
+    text-decoration: none;
+}
+
+body.dark-mode {
+    background-color: #1e1e1e;
+    color: #f5f5f5;
+}
+
+body.dark-mode #welcome-section {
+    background-color: #333;
+}
+
+body.dark-mode #main-journal-title {
+    background-color: #333;
+    color: #fff;
+}
+
+body.dark-mode input,
+body.dark-mode textarea {
+    background-color: #333;
+    color: #fff;
+    border-color: #555;
+}
+
+body.dark-mode .day,
+body.dark-mode .journal-container,
+body.dark-mode .month {
+    background-color: #444;
+}
+
+body.dark-mode .entry-input {
+    background-color: #444;
+    color: #fff;
+}
+
+body.dark-mode .nameOfMonth {
+    background-color: #444;
+    color: #fff;
+}
+
+body.dark-mode .date {
+    color: #fff;
+}
+
+body.dark-mode .toast-message {
+    background-color: #555;
+}
